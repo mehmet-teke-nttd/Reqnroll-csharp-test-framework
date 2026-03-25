@@ -1,0 +1,8 @@
+bin/
+obj/
+artifacts/
+scripts/local-*.ps1
+.env
+.vs/
+TestResults/
+playwright-report/

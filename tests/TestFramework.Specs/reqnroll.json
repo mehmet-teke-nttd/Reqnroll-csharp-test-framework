@@ -1,0 +1,17 @@
+{
+  "$schema": "https://schemas.reqnroll.net/reqnroll-config-latest.json",
+  "bindingCulture": {
+    "name": "en-US"
+  },
+  "generator": {
+    "allowDebugGeneratedFiles": true
+  },
+  "runtime": {
+    "missingOrPendingStepsOutcome": "Error"
+  },
+  "formatters": {
+    "html": {
+      "outputFilePath": "report/reqnroll_report.html"
+    }
+  }
+}
