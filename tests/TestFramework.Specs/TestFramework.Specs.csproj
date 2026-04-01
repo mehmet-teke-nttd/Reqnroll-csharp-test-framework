@@ -14,21 +14,18 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.5" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.5" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
-    <PackageReference Include="Microsoft.Playwright.NUnit" Version="1.53.0" />
-    <PackageReference Include="NUnit" Version="4.1.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="4.5.0">
+    <PackageReference Include="Microsoft.Playwright" Version="1.58.0" />
+    <PackageReference Include="xunit.core" Version="2.8.1" />
+    <PackageReference Include="xunit.assert" Version="2.8.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Reqnroll.Microsoft.Extensions.DependencyInjection" Version="3.*" />
-    <PackageReference Include="Reqnroll.NUnit" Version="3.*" />
+    <PackageReference Include="Reqnroll.Xunit" Version="3.*" />
     <PackageReference Include="Reqnroll.Tools.MsBuild.Generation" Version="3.*" />
     <PackageReference Include="Serilog" Version="4.0.1" />
     <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\\..\\src\\TestFramework.API\\TestFramework.API.csproj" />
     <ProjectReference Include="..\\..\\src\\TestFramework.Common\\TestFramework.Common.csproj" />
     <ProjectReference Include="..\\..\\src\\TestFramework.Core\\TestFramework.Core.csproj" />
     <ProjectReference Include="..\\..\\src\\TestFramework.UI\\TestFramework.UI.csproj" />
@@ -48,5 +45,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
+  <ItemGroup>
+  <Content Include="**/*.feature"/>
+</ItemGroup>
 
 </Project>

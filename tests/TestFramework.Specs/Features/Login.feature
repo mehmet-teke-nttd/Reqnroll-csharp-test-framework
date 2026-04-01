@@ -10,4 +10,6 @@ Feature: Login
   Scenario: Login fails with invalid credentials
     Given the user opens the login page
     When the "invalid" user logs in
-    Then a login error should be displayed
+    Then the login error message should be displayed
+
+  

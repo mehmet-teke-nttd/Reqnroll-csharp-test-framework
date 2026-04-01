@@ -25,18 +25,32 @@ public sealed class LoginSteps
         _testUserResolver = testUserResolver;
     }
 
-    [Given("the user opens the login page")]
-    public async Task GivenTheUserOpensTheLoginPage()
-    {
-        await _loginPage.OpenAsync();
-    }
+  
+        [Given(@"the user opens the login page")]
+        public async Task Giventheuseropenstheloginpage()
+        {
+            await _loginPage.OpenAsync();
+        }
 
-    [When("the {string} user logs in")]
-    public async Task WhenTheNamedUserLogsIn(string userKey)
-    {
-        var user = _testUserResolver.GetUser(userKey);
-        await _loginPage.LoginAsync(user.Username, user.Password);
-    }
+        [When(@"the ""(.*)"" user logs in")]
+        public async Task Whentheuserlogsin(string userKey)
+        {
+            var user = _testUserResolver.GetUser(userKey);
+                await _loginPage.LoginAsync(user.Username, user.Password);
+        }
+
+        [Then(@"the inventory page should be displayed")]
+        public async Task Thentheinventorypageshouldbedisplayed()
+        {
+            await _loginPage.VerifyInventoryPageAsync();
+        }
+
+
+
+
+
+
+   
 
     [When("the user logs in with username {string} and password {string}")]
     public async Task WhenTheUserLogsInWithUsernameAndPassword(string username, string password)
@@ -44,11 +58,7 @@ public sealed class LoginSteps
         await _loginPage.LoginAsync(username, password);
     }
 
-    [Then("the inventory page should be displayed")]
-    public async Task ThenTheInventoryPageShouldBeDisplayed()
-    {
-        await _loginPage.VerifyInventoryPageAsync();
-    }
+   
 
     [Then("a login error should be displayed")]
     public async Task ThenALoginErrorShouldBeDisplayed()
