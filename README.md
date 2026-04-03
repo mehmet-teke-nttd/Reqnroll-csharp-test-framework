@@ -12,7 +12,7 @@ Key features:
 
 * BDD with Reqnroll
 * UI automation with Playwright
-* NUnit test execution
+* xUnit test execution
 * Environment-based configuration
 * Dependency Injection (DI)
 * Secure credential handling via environment variables
@@ -23,14 +23,15 @@ Key features:
 
 ## Tech Stack
 
-* .NET 8/9
+* .NET 9
 * Reqnroll
-* NUnit
+* xUnit
 * Microsoft Playwright
 * FluentAssertions
 * Microsoft.Extensions.Configuration
 * Microsoft.Extensions.DependencyInjection
 * Serilog
+* ExtentReports
 
 ---
 
@@ -77,17 +78,35 @@ dotnet restore
 playwright install
 ```
 
+### 4. Build the project
+
+```
+dotnet build
+```
+
+### 5. Open in IDE (optional)
+
+```
+start TestFramework.sln
+```
+
 ---
 
 ## Running Tests
 
-### Option 1: Using script (recommended)
+### Option 1: Local development (recommended)
 
 ```
-.\scripts\local-run-tests.ps1
+.\scripts\local-run-tests.ps1 -Environment qa
 ```
 
-### Option 2: Manual execution
+### Option 2: CI/CD or production
+
+```
+.\scripts\run-tests.ps1 -Environment uat
+```
+
+### Option 3: Manual execution
 
 PowerShell:
 
@@ -186,8 +205,10 @@ playwright show-trace <trace-file>.zip
 HTML report is generated after test execution:
 
 ```
-bin/Debug/net*/report/reqnroll_report.html
+artifacts/ExtentReport.html
 ```
+
+Open the report in your browser to view test results, screenshots, and detailed logs.
 
 ---
 
