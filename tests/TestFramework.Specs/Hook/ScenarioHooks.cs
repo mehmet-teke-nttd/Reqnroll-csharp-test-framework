@@ -1,3 +1,7 @@
+using System;
+using System.IO;
+using System.Linq;
+using AventStack.ExtentReports;
 using Microsoft.Playwright;
 using Reqnroll;
 using TestFramework.Common.Configuration;
@@ -29,6 +33,19 @@ public sealed class ScenarioHooks
     [BeforeScenario]
     public async Task BeforeScenarioAsync()
     {
+        var scenarioName = _scenarioContext.ScenarioInfo.Title;
+        ExtentManager.CreateTest(scenarioName);
+
+        if (_scenarioContext.ScenarioInfo.Tags?.Any() == true)
+        {
+            foreach (var tag in _scenarioContext.ScenarioInfo.Tags)
+            {
+                ExtentManager.CurrentTest?.AssignCategory(tag.TrimStart('@'));
+            }
+        }
+
+        ExtentManager.CurrentTest?.Info($"Starting scenario: {scenarioName}");
+
         _uiSession.BrowserContext = await _browserManager.CreateContextAsync();
 
         await _uiSession.BrowserContext.Tracing.StartAsync(new TracingStartOptions
@@ -92,6 +109,27 @@ public sealed class ScenarioHooks
         if (_uiSession.Page is not null)
         {
             await _uiSession.Page.CloseAsync();
+        }
+
+        var extentTest = ExtentManager.CurrentTest;
+
+        if (_scenarioContext.TestError is not null)
+        {
+            extentTest?.Fail(_scenarioContext.TestError);
+
+            if (!string.IsNullOrEmpty(_uiSession.ScreenshotPath) && File.Exists(_uiSession.ScreenshotPath))
+            {
+                extentTest?.AddScreenCaptureFromPath(_uiSession.ScreenshotPath, "Screenshot on failure");
+            }
+
+            if (!string.IsNullOrEmpty(_uiSession.TracePath) && File.Exists(_uiSession.TracePath))
+            {
+                extentTest?.Info($"Trace file: {_uiSession.TracePath}");
+            }
+        }
+        else
+        {
+            extentTest?.Pass("Scenario passed");
         }
 
         if (_uiSession.BrowserContext is not null)
